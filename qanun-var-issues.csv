@@ -1,0 +1,258 @@
+title,body,assignee,labels,milestone,estimate
+[S-01] Run setup_github.sh / finish repo setup,"**S-01** — Owner: Sleem | Branch: see CONTRIBUTING.md
+
+Repo live on GitHub, main protected, members invited, branches created.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",,"task,lead",G1-Day2,
+[S-02] Verify member branches + checks,"**S-02** — Owner: Sleem | Branch: see CONTRIBUTING.md
+
+Each member branch exists from main; CI checks defined.
+
+**Depends on:** S-01
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",,"task,lead",G1-Day2,
+[S-03] Intent classifier in graph.py,"**S-03** — Owner: Sleem | Branch: see CONTRIBUTING.md
+
+Rule-based first (عقد/مراجعة→review, قضية→case, إنشاء/صياغة→generation, else QA); LLM fallback via llm_service. 10 sample prompts classified correctly.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",,"task,lead",G1-Day2,
+[S-04] Hybrid retrieval skeleton,"**S-04** — Owner: Sleem | Branch: see CONTRIBUTING.md
+
+BGE-M3 dense + BM25 (rank-bm25) RRF fusion; rerank top10->top5 with bge-reranker-v2-m3; expose retrieve_articles().
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",,"task,lead",G1-Day2,
+[S-05] Wire Citation Verifier into graph,"**S-05** — Owner: Sleem | Branch: see CONTRIBUTING.md
+
+Calls Ali verifier fn; failed responses blocked with notes.
+
+**Depends on:** A-07
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",,"task,lead",G2-Day4,
+[S-06] Failover drill: Gemini -> Groq -> OpenRouter,"**S-06** — Owner: Sleem | Branch: see CONTRIBUTING.md
+
+Force Gemini quota error, confirm Groq answers; log provider per request.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",,"task,lead",G2-Day4,
+[S-07] Docker + docker-compose smoke test,"**S-07** — Owner: Sleem | Branch: see CONTRIBUTING.md
+
+docker-compose up --build, health endpoint 200.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",,"task,lead",G5-Day10,
+"[S-08] Tag v1.0-defense, freeze main, record demo video","**S-08** — Owner: Sleem | Branch: see CONTRIBUTING.md
+
+Day 10: tag pushed, backup video link in README.
+
+**Depends on:** S-07
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",,"task,lead",G5-Day10,
+[A-01] CRITICAL PATH: collect Civil Code + Labor Law from official/public sources,"**A-01** — Owner: Ali | Branch: see CONTRIBUTING.md
+
+Log source URL + access date per law in data/SOURCES.md. Start Day 1.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",alyabdelhalim5@gmail.com,"task,kb-f1,critical-path",G1-Day2,
+[A-02] Verify article counts vs official text,"**A-02** — Owner: Ali | Branch: see CONTRIBUTING.md
+
+~1,149 Civil Code (Law 131/1948) / ~257 Labor Law (Law 12/2003); table in SOURCES.md, discrepancies noted.
+
+**Depends on:** A-01
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",alyabdelhalim5@gmail.com,"task,kb-f1",G1-Day2,
+[A-03] Arabic normalizer + article-level chunker,"**A-03** — Owner: Ali | Branch: see CONTRIBUTING.md
+
+Diacritics, alef/hamza/taa-marbuta, header stripping, dedup. Metadata: law name/number/year/article/chapter/last amendment. Unit test on 20 articles passes.
+
+**Depends on:** A-02
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",alyabdelhalim5@gmail.com,"task,kb-f1",G1-Day2,
+[A-04] Index laws into ChromaDB,"**A-04** — Owner: Ali | Branch: see CONTRIBUTING.md
+
+BGE-M3 embeddings + BM25 side index; persistence under data/indexed/.
+
+**Depends on:** A-03
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",alyabdelhalim5@gmail.com,"task,kb-f1",G1-Day2,
+[A-05] Retrieval smoke test,"**A-05** — Owner: Ali | Branch: see CONTRIBUTING.md
+
+20 benchmark questions, correct article in top-5 >= 80%. Write evaluation/retrieval_smoke.md.
+
+**Depends on:** A-04
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",alyabdelhalim5@gmail.com,"task,kb-f1",G2-Day4,
+[A-06] Deterministic Citation Verifier,"**A-06** — Owner: Ali | Branch: see CONTRIBUTING.md
+
+Every cited (law, article) exists in retrieved passages; return pass/fail + notes. Unit tests: pass + fabricated-citation cases.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",alyabdelhalim5@gmail.com,"task,kb-f1",G2-Day4,
+[A-07] Build legal_qa_agent full loop,"**A-07** — Owner: Ali | Branch: see CONTRIBUTING.md
+
+Query rewrite -> retrieve -> generate-from-sources only -> verify -> refuse-if-unsupported. Arabic demo answers quote article text.
+
+**Depends on:** A-05,A-06
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",alyabdelhalim5@gmail.com,"task,kb-f1",G2-Day4,
+[A-08] Gate 2 support: end-to-end F1 demo,"**A-08** — Owner: Ali | Branch: see CONTRIBUTING.md
+
+Day 4: 3 live Arabic questions incl. at least 1 verifier refusal.
+
+**Depends on:** A-07,S-05
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",alyabdelhalim5@gmail.com,"task,kb-f1",G2-Day4,
+[A-09] Support F2/F3 retrieval queries,"**A-09** — Owner: Ali | Branch: see CONTRIBUTING.md
+
+Filters by law type if needed; F2/F3 retrieval calls return relevant articles/rulings.
+
+**Depends on:** A-05
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",alyabdelhalim5@gmail.com,"task,kb-f1",G3-Day7,
+[M-01] Implement document_service.extract(),"**M-01** — Owner: Mo3taz | Branch: see CONTRIBUTING.md
+
+PyMuPDF (PDF), python-docx (DOCX), Tesseract ara/EasyOCR (images); return ExtractedDocument with ocr_used flag. 3 sample contracts extract cleanly.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",amoataz156@gmail.com,"task,f2-docs",G1-Day2,
+[M-02] OCR human-confirmation flow,"**M-02** — Owner: Mo3taz | Branch: see CONTRIBUTING.md
+
+OCR text sets needs_human_confirmation=True; /documents/{id}/confirm stores corrected text; agents never see unconfirmed text.
+
+**Depends on:** M-01
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",amoataz156@gmail.com,"task,f2-docs",G2-Day4,
+[M-03] Clause segmentation,"**M-03** — Owner: Mo3taz | Branch: see CONTRIBUTING.md
+
+Split contracts into numbered clauses (Arabic-aware regex + heading detection).
+
+**Depends on:** M-01
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",amoataz156@gmail.com,"task,f2-docs",G3-Day7,
+[M-04] Contract type detection,"**M-04** — Owner: Mo3taz | Branch: see CONTRIBUTING.md
+
+Detect the 3 MVP types: employment / NDA / service.
+
+**Depends on:** M-03
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",amoataz156@gmail.com,"task,f2-docs",G3-Day7,
+[M-05] Legal specialist session (~Day 3): finalize risk checklists,"**M-05** — Owner: Mo3taz | Branch: see CONTRIBUTING.md
+
+Mandatory clauses + risky patterns per MVP type and party role; sign-off in checklists/.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",amoataz156@gmail.com,"task,f2-docs",G3-Day7,
+[M-06] Risk scoring engine,"**M-06** — Owner: Mo3taz | Branch: see CONTRIBUTING.md
+
+High/Med/Low per clause with reason; missing-clause detection; alternative wording suggestion.
+
+**Depends on:** M-04,M-05
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",amoataz156@gmail.com,"task,f2-docs",G3-Day7,
+[M-07] Expose F2 review API for F4 self-review,"**M-07** — Owner: Mo3taz | Branch: see CONTRIBUTING.md
+
+Degrade gracefully (status=degraded + flag) if unavailable.
+
+**Depends on:** M-06
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",amoataz156@gmail.com,"task,f2-docs",G3-Day7,
+[M-08] Gate 3 support: upload -> OCR confirm -> risk report,"**M-08** — Owner: Mo3taz | Branch: see CONTRIBUTING.md
+
+End-to-end demo in UI.
+
+**Depends on:** M-02,M-06
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",amoataz156@gmail.com,"task,f2-docs",G3-Day7,
+[F-01] Curate 30-50 Court of Cassation rulings,"**F-01** — Owner: Mowafy | Branch: see CONTRIBUTING.md
+
+Public/anonymized only; document source + terms of use.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",m7modmowafy@gmail.com,"task,f3-eval",G3-Day7,
+[F-02] Index rulings into ChromaDB,"**F-02** — Owner: Mowafy | Branch: see CONTRIBUTING.md
+
+Same store as laws; metadata: court, year, issue, outcome.
+
+**Depends on:** F-01
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",m7modmowafy@gmail.com,"task,f3-eval",G3-Day7,
+[F-03] case_analysis_agent: extraction + analysis,"**F-03** — Owner: Mowafy | Branch: see CONTRIBUTING.md
+
+Parties/facts extraction, chronology, issues, strengths/weaknesses each linked to legal basis (retrieved article/ruling). Demo on 2 sample cases.
+
+**Depends on:** F-02
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",m7modmowafy@gmail.com,"task,f3-eval",G3-Day7,
+[F-04] Outcome estimation: range + reasons + disclaimer,"**F-04** — Owner: Mowafy | Branch: see CONTRIBUTING.md
+
+Retrieval + heuristic scoring -> likely/unlikely/undetermined WITH reasons; non-binding disclaimer in EVERY output (test-verified).
+
+**Depends on:** F-03
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",m7modmowafy@gmail.com,"task,f3-eval",G3-Day7,
+[F-05] Build evaluation datasets (start Day 3-4),"**F-05** — Owner: Mowafy | Branch: see CONTRIBUTING.md
+
+50 Q&A reference answers; 15 labeled contracts; 10 closed cases with hidden outcomes. evaluation/test_datasets/.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",m7modmowafy@gmail.com,"task,f3-eval",G2-Day4,
+[F-06] Legal specialist session (~Day 6): review test sample,"**F-06** — Owner: Mowafy | Branch: see CONTRIBUTING.md
+
+Review sample of questions + labels; notes committed.
+
+**Depends on:** F-05
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",m7modmowafy@gmail.com,"task,f3-eval",G4-Day9,
+[F-07] Run all evaluation metrics,"**F-07** — Owner: Mowafy | Branch: see CONTRIBUTING.md
+
+Retrieval accuracy, Ragas faithfulness, refusal rate, risk recall/precision, latency per request -> evaluation/results.json.
+
+**Depends on:** F-05
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",m7modmowafy@gmail.com,"task,f3-eval",G4-Day9,
+[F-08] Write evaluation_report.md,"**F-08** — Owner: Mowafy | Branch: see CONTRIBUTING.md
+
+Metrics + failure cases + applied fixes. Merged to main.
+
+**Depends on:** F-07
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",m7modmowafy@gmail.com,"task,f3-eval",G4-Day9,
+[E-01] Wire Streamlit UI to all 4 intents,"**E-01** — Owner: ElMelegy | Branch: see CONTRIBUTING.md
+
+Sidebar selects intent -> API -> render AgentResponse (answer + citations panel + disclaimer). PR includes screenshot/recording.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",mohamedelmelegy632@gmail.com,"task,f4-frontend",G1-Day2,
+[E-02] Upload flow with OCR confirmation,"**E-02** — Owner: ElMelegy | Branch: see CONTRIBUTING.md
+
+File upload -> extracted text preview -> edit box -> confirm -> submit.
+
+**Depends on:** M-01
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",mohamedelmelegy632@gmail.com,"task,f4-frontend",G2-Day4,
+[E-03] Guided questionnaires for 3 MVP contract types,"**E-03** — Owner: ElMelegy | Branch: see CONTRIBUTING.md
+
+Party details, key terms; jurisdiction fixed to Egypt.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",mohamedelmelegy632@gmail.com,"task,f4-frontend",G3-Day7,
+[E-04] DOCX generation: Jinja2 + python-docx,"**E-04** — Owner: ElMelegy | Branch: see CONTRIBUTING.md
+
+Vetted templates; Arabic RTL formatting; download button; generated DOCX opens correctly in Word.
+
+**Depends on:** E-03
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",mohamedelmelegy632@gmail.com,"task,f4-frontend",G3-Day7,
+[E-05] Route generated contracts through F2 self-review,"**E-05** — Owner: ElMelegy | Branch: see CONTRIBUTING.md
+
+Show review summary + graceful-degradation flag when F2 unavailable.
+
+**Depends on:** M-07
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",mohamedelmelegy632@gmail.com,"task,f4-frontend",G3-Day7,
+[E-06] Joint template legal review (with M-05 session),"**E-06** — Owner: ElMelegy | Branch: see CONTRIBUTING.md
+
+Sign-off recorded in templates/REVIEW.md.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",mohamedelmelegy632@gmail.com,"task,f4-frontend",G3-Day7,
+[E-07] Gate 3 support: questionnaire -> DOCX download,"**E-07** — Owner: ElMelegy | Branch: see CONTRIBUTING.md
+
+Full F4 demo incl. embedded review results.
+
+**Depends on:** E-04,E-05
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",mohamedelmelegy632@gmail.com,"task,f4-frontend",G3-Day7,
+[E-08] UI polish + defense demo script,"**E-08** — Owner: ElMelegy | Branch: see CONTRIBUTING.md
+
+Arabic labels, disclaimer every page, script rehearsed end-to-end.
+
+**Definition of Done:** PR + 1 peer review, pytest+ruff green, demo evidence in PR, TASKS.md box checked.",mohamedelmelegy632@gmail.com,"task,f4-frontend",G5-Day10,
