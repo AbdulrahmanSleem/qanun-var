@@ -17,9 +17,11 @@ requests>=2.32
 # Retrieval: BGE-M3 + reranker + BM25
 FlagEmbedding>=1.3
 chromadb>=0.5
+qdrant-client>=1.7
 rank-bm25>=0.2
 sentence-transformers>=3.0
 torch>=2.4
+pydantic-settings>=2.0
 
 # Document processing
 PyMuPDF>=1.24
